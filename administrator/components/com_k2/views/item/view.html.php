@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: view.html.php 2018 2013-08-01 17:11:45Z lefteris.kavadas $
+ * @version		$Id: view.html.php 1983 2013-05-31 13:36:41Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -27,7 +27,7 @@ class K2ViewItem extends K2View
 		JHTML::_('behavior.modal');
         JRequest::setVar('hidemainmenu', 1);
         $document = JFactory::getDocument();
-        $document->addScript(JURI::root(true).'/media/k2/assets/js/nicEdit.js?v=2.6.8');
+        $document->addScript(JURI::root(true).'/media/k2/assets/js/nicEdit.js?v=2.6.7');
         //var K2SitePath = '".JURI::root(true)."/';
         $js = "
 					var K2BasePath = '".JURI::base(true)."/';
@@ -96,18 +96,19 @@ class K2ViewItem extends K2View
         {
             $dateFormat = JText::_('K2_DATE_FORMAT_CALENDAR');
         }
-        $item->publish_up = JHTML::_('date', $item->publish_up, $dateFormat);
+        //$item->publish_up = JHTML::_('date', $item->publish_up, $dateFormat);
         if ($item->publish_down == $db->getNullDate())
         {
             $item->publish_down = '';
         }
         else
         {
-            $item->publish_down = JHTML::_('date', $item->publish_down, $dateFormat);
+            //$item->publish_down = JHTML::_('date', $item->publish_down, $dateFormat);
         }
 
         // Set up calendars
-        $created = JHTML::_('date', $item->created, $dateFormat);
+        //$created = JHTML::_('date', $item->created, $dateFormat);
+        $created = $item->created;
         $lists['createdCalendar'] = JHTML::_('calendar', $created, 'created', 'created');
         $lists['publish_up'] = JHTML::_('calendar', $item->publish_up, 'publish_up', 'publish_up');
         $lists['publish_down'] = JHTML::_('calendar', $item->publish_down, 'publish_down', 'publish_down');
@@ -262,6 +263,9 @@ class K2ViewItem extends K2View
         }
 
         $params->set('galleries_rootfolder', 'media/k2/galleries');
+        $params->set('thb_width', '150');
+        $params->set('thb_height', '120');
+        $params->set('enabledownload', '0');
         $item->text = $item->gallery;
         if (K2_JVERSION == '15')
         {
